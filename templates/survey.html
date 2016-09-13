@@ -1,59 +1,203 @@
-{% extends 'base.html' %}
-{% load survey_extras %}
+<!-- {% load survey_extras %} -->
+{% load material_form %}
+{% load static %}
+<html>
+
+<head>
+
+	    {% include 'material/includes/material_css.html' %}
+
+	 	 <script src="{% static 'material/js/jquery-2.2.0.js' %}"></script> 
+
+   		 {% include 'material/includes/material_js.html' %}
+ 	
+
+<style type="text/css">
+    @media only screen and (min-width : 601px) {
+        #id_card_type_container {
+            margin-top: 40px;
+            margin-left: 50px;
+      }
+
+}
+      .section h5 {
+        font-size: 1.2rem;
+        padding-bottom: 0.2rem;
+        border-bottom: 3px solid black;
+    }
+}
+</style>
+</head>
+
+<body>
+
+
+
 
 {% block body %}
-
-<h1>Welcome to {{survey.name|title}}</h1>
+<div class="container">
+<h1>{{survey.name|title}}</h1>
 <div class="survey-description">
 	{{survey.description|safe}}
 </div>
 
-<div>
-	<form action="/survey/{{survey.id}}/" method="post">{% csrf_token %}
+<div >
+<!-- <md-content layout="column" layout-align="center" flex class="md-padding"> -->
 
-		<h3 class="collapsible" id="response_metadata">Response Metadata<span></span></h3>
-		<div class="category-container">
 
-		<div class="field-wrapper question-required">
+
+<form action="/survey/{{survey.id}}/" method="post">{% csrf_token %}
+    {% form %}       
+      {% part form.interviewer prefix %}<i class="material-icons prefix">interviewer</i>{% endpart %}
+        {% part form.emailID prefix %}<i class="material-icons prefix">emailID</i>{% endpart %}
+        
+    {% endform %}
+    
+    <button type="submit" name="_submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+
+
+
+
+
+
+
+
+
+ <form action="/survey/{{survey.id}}/" method="post">{% csrf_token %}
+
+<!-- 		<h3 class="collapsible" id="response_metadata">User Information<span></span></h3>
+ -->		<div class="category-container">
+
+<!-- 		<div class="field-wrapper question-required">
 			{{ response_form.interviewer.errors }}
 			<span class="asterix"> * </span>{{ response_form.interviewer.label_tag }}
 			<span class="form-help-text">{{ response_form.interviewer.help_text}}</span>
-			<div class="form-field-body">
+			<div>
 				{{ response_form.interviewer }}
 			</div>
-		</div>
+		</div> -->
 
-		<div class="field-wrapper question-required">
-			{{ response_form.interviewee.errors }}
-			<span class="asterix"> * </span>{{ response_form.interviewee.label_tag }}
-			<span class="form-help-text">{{ response_form.interviewee.help_text}}</span>
+		<!--  <md-input-container>
+			<label>name</label>
+            
+            {{ response_form.interviewer }}
+		</md-input-container>
+
+
+
+
+		<md-input-container>
+			<label>email</label>
+			{{response_form.emailID}}
+		</md-input-container>
+
+
+		<md-input-container>
+			<label>comments</label>
+			{{response_form.comments}}
+		</md-input-container>  -->
+
+
+<!-- 		 <div class="field-wrapper question-required">
+			{{ response_form.emailID.errors }}
+			<span class="asterix"> * </span>{{ response_form.emailID.label_tag }}
+			<span class="form-help-text">{{ response_form.emailID.help_text}}</span>
 			<div class="form-field-body">
-				{{ response_form.interviewee }}
+				{{ response_form.emailID }}
 			</div>
-		</div>
+		</div> -->
 
-		<div class="field-wrapper">
-			{{ response_form.conditions.errors }}
-			{{ response_form.conditions.label_tag }}
-			<span class="form-help-text">{{ response_form.conditions.help_text}}</span>
-			<div class="form-field-body">
-				{{ response_form.conditions }}
-			</div>
-		</div>
 
-		<div class="field-wrapper">
+		<!-- <div class="field-wrapper">
 			{{ response_form.comments.errors }}
 			{{ response_form.comments.label_tag }}
 			<span class="form-help-text">{{ response_form.comments.help_text}}</span>
 			<div class="form-field-body">
 				{{ response_form.comments }}
 			</div>
-		</div>
+		</div> -->
 	</div>
 
-		<ol class="survey-questions">
+		<ul class="survey-questions">
+		<h4> survey's questions </h4>
 		{% for category in categories %}
-			<h3 class="collapsible">{{category|title}} Questions<span></span></h3>
+			<h3 class="collapsible">{{categories|title}} Questions<span></span></h3>
+			<div class="category-container">
+			{% for field in response_form %}
+				{% if field.field.widget.attrs.category == category %}
+					<md-list class="q-item" value="{% counter %}">
+					{% if field.field.required %} 
+					<div class="field-wrapper question-required"> 
+						{{ field.errors }}
+						<label class="label-inline">{{ field.label }}</label>
+					{% else %} 
+					<div class="field-wrapper"> 
+						{{ field.errors }}
+						<label class="label-inline">{{ field.label }}</label>
+					{% endif %}
+						<span class="form-help-text">{{ field.help_text}}</span>
+					<div class="form-field-body">
+						{{ field }}
+					</div>
+							<!-- <md-radio-group>
+					            <md-radio-button value="kela">
+             												 {{field}}
+           						</md-radio-button>
+          					</md-radio-group> -->
+					<!-- <md-checkbox ng-disabled="false" class="red" ng-model="data.cb4" ng-init="data.cb4=true">
+             							{{field}}
+          			</md-checkbox>	  -->
+          			
+
+					</div>
+					</md-list>
+				{% endif %}
+			{% endfor %}
+			</div>
+	{% endfor %}
+		</ul>
+
+		<md-button class="md-accent md-raised">I'm Done</md-button>
+
+		<!-- <div class="submit-button"><input class="btn-primary" type="submit" value="I'm done!"></div> -->
+	</form>
+
+	</md-content>
+
+</div>
+
+</div> 
+</body>
+</html>
+<!-- {% endblock %}
+
+{% block extrajs %}
+	<script src="/media/js/jquery.collapsible.js"></script>	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			//collapsible management
+			$('.collapsible').collapsible({defaultOpen: 'response_metadata'});
+		});
+	</script>
+{% endblock %} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 		<ol class="survey-questions">
+		<h4> survey's questions </h4>
+		{% for category in categories %}
+			<h3 class="collapsible">{{categories|title}} Questions<span></span></h3>
 			<div class="category-container">
 			{% for field in response_form %}
 				{% if field.field.widget.attrs.category == category %}
@@ -76,22 +220,8 @@
 				{% endif %}
 			{% endfor %}
 			</div>
-		{% endfor %}
-		</ol>
+	{% endfor %}
+		</ol> -->
 
-		<div class="submit-button"><input type="submit" value="I'm done!"></div>
-	</form>
 
-</div>
 
-{% endblock %}
-
-{% block extrajs %}
-	<script src="/media/js/jquery.collapsible.js"></script>	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			//collapsible management
-			$('.collapsible').collapsible({defaultOpen: 'response_metadata'});
-		});
-	</script>
-{% endblock %}

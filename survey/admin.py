@@ -2,6 +2,9 @@ from survey.models import Question, Category, Survey, Response, AnswerText, Answ
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+# from complaints import admin
+
+
 
 class QuestionInline(admin.TabularInline):
 	model = Question
@@ -40,6 +43,7 @@ class ResponseAdmin(admin.ModelAdmin):
 	inlines = [AnswerTextInline, AnswerRadioInline, AnswerSelectInline, AnswerSelectMultipleInline, AnswerIntegerInline]
 	# specifies the order as well as which fields to act on 
 	readonly_fields = ('survey', 'created', 'updated', 'interview_uuid')
+	exclude=['conditions',]
 
 #admin.site.register(Question, QuestionInline)
 #admin.site.register(Category, CategoryInline)

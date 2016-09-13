@@ -1,0 +1,52 @@
+{% load material_form %}
+{% load static %}
+<html>
+
+<head>
+	    {% include 'material/includes/material_css.html' %}
+
+	 	 <script src="{% static 'material/js/jquery-2.2.0.js' %}"></script> 
+
+   		 {% include 'material/includes/material_js.html' %}
+ 	
+
+
+
+<style type="text/css">
+    @media only screen and (min-width : 601px) {
+        #id_card_type_container {
+            margin-top: 40px;
+            margin-left: 50px;
+      }
+
+}
+      .section h5 {
+        font-size: 1.2rem;
+        padding-bottom: 0.2rem;
+        border-bottom: 3px solid black;
+    }
+}
+</style>
+
+
+
+</head>
+
+<body>
+
+	<form action="/complaints/" method="post" class="viewform">{% csrf_token %}
+    {% form %}       
+      {% part form.title prefix %}<i class="material-icons prefix">title</i>{% endpart %}
+        {% part form.body prefix %}<i class="material-icons prefix">description</i>{% endpart %}
+        
+        {% part form.category prefix %}<i class="material-icons prefix">description</i>{% endpart %}
+        
+    {% endform %}
+    
+    <button type="submit" name="_submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+            	
+
+</body>
+
+</html>

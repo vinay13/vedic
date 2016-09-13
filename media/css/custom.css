@@ -7,6 +7,7 @@ p { }
 
 html, body {
 	height: 100%;
+
 	/* The html and body elements cannot have any padding or margin. */
 }
 
@@ -192,7 +193,7 @@ img.profile-page-img {
 }
 
 .question-required {
-	background: #E0FFD6;
+	background: #81C784;
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
@@ -258,5 +259,33 @@ ol.survey-questions {
 
 .q-item {
 	margin-left: 60px;
+}
+
+/*new css*/
+
+a{
+	text-decoration: none !important;
+}
+
+a:-webkit-any-link {
+text-decoration: none !important;
+}
+
+md-content.md-default-theme {
+    background-color: inherit;
+}
+
+md-card.md-default-theme {
+    background-color: rgb(233, 255, 203);
+    border-radius: 2px;
+}
+
+md-card.card-shadow {
+    box-shadow: 3px 4px 1px 0px rgba(38, 98, 111, 0.85),0 2px 2px 0 rgba(9, 222, 195, 0.14),0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+md-card md-card-content {
+    padding: 16px;
+    text-align: center;
 }
 

@@ -1,4 +1,10 @@
-Django==1.4
+Django==1.8
 django-tastypie # API
 django-registration # account logic, views and workflows
 
+
+
+<!-- {% part form.against prefix %}<i class="material-icons prefix">drafts</i>{% endpart %}
+        {% part form.name prefix %}<i class="material-icons prefix">account_box</i>{% endpart %}
+         {% part form.email prefix %}<i class="material-icons prefix">email</i>{% endpart %}
+         {% part form.phoneno prefix %}<i class="material-icons prefix">phone</i>{% endpart %} -->
